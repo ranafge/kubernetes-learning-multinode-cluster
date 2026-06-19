@@ -220,7 +220,7 @@ grep SystemdCgroup /etc/containerd/config.toml
 
 এই কমান্ডটাই আসলে Kubernetes ক্লাস্টার তৈরি করে। Control Plane নোড সেটআপ করে, API Server, etcd, Controller Manager সব চালু করে। `--pod-network-cidr` Flannel-এর জন্য নির্দিষ্ট রেঞ্জ দেয়।
 
-# IP ফরওয়ার্ডিং সক্রিয় করে kubeadm init চালান
+# IP ফরওয়ার্ডিং সক্রিয় করে kubeadm init চালান | Kubernetes-এর পডগুলোকে ইন্টারনেট বা বাইরের সাথে যোগাযোগ করতে হলে IP ফরওয়ার্ডিং চালু করতে হবে।
 
 ```bash
 # ১. IP ফরওয়ার্ডিং চালু করুন
