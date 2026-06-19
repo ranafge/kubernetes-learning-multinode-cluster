@@ -167,9 +167,9 @@ sudo systemctl status kubelet
 
 ---
 
-# ## ধাপ ৭ — Swap বন্ধ করা (অত্যন্ত জরুরি!)
+ধাপ ৭ — Swap বন্ধ করা (অত্যন্ত জরুরি!)
 
-### why need:
+why need:
 
 Kubernetes ডিজাইনে Swap ব্যবহার করা নিষিদ্ধ। Swap চালু থাকলে `kubelet` সঠিকভাবে কাজ করে না, ক্লাস্টার শুরু হয় না। তাই Swap বন্ধ করতেই হবে।
 
@@ -214,13 +214,13 @@ sudo systemctl status containerd --no-pager
 grep SystemdCgroup /etc/containerd/config.toml
 ```
 
-# ## ধাপ ৯ — ক্লাস্টার তৈরি করো (kubeadm init)
+#ধাপ ৯ — ক্লাস্টার তৈরি করো (kubeadm init)
 
-### why need:
+#why need:
 
 এই কমান্ডটাই আসলে Kubernetes ক্লাস্টার তৈরি করে। Control Plane নোড সেটআপ করে, API Server, etcd, Controller Manager সব চালু করে। `--pod-network-cidr` Flannel-এর জন্য নির্দিষ্ট রেঞ্জ দেয়।
 
-## IP ফরওয়ার্ডিং সক্রিয় করে kubeadm init চালান | Kubernetes-এর পডগুলোকে ইন্টারনেট বা বাইরের সাথে যোগাযোগ করতে হলে IP ফরওয়ার্ডিং চালু করতে হবে।
+#IP ফরওয়ার্ডিং সক্রিয় করে kubeadm init চালান | Kubernetes-এর পডগুলোকে ইন্টারনেট বা বাইরের সাথে যোগাযোগ করতে হলে IP ফরওয়ার্ডিং চালু করতে হবে।
 
 ```bash
 # ১. IP ফরওয়ার্ডিং চালু করুন
@@ -243,9 +243,9 @@ sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 
 ---
 
-# ## ধাপ ১০ — kubectl কনফিগার করা
+#ধাপ ১০ — kubectl কনফিগার করা
 
-### why need:
+#why need:
 
 `kubectl` ক্লাস্টারের সাথে কথা বলতে চাইলে পরিচয়পত্র লাগে। `admin.conf` ফাইলেই সেই পরিচয়পত্র থাকে। `~/.kube/config` এ রাখলে `kubectl` নিজে নিজে খুঁজে পায়।
 
@@ -255,7 +255,7 @@ sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 | `cp -i admin.conf`        | অ্যাডমিন পরিচয়পত্র কপি করো |
 | `chown $(id -u):$(id -g)` | ফাইলটার মালিক তুমি হও       |
 
-### command
+# command
 
 ```bash
 mkdir -p $HOME/.kube
@@ -267,9 +267,9 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 ---
 
-# ## ধাপ ১১ — Flannel নেটওয়ার্ক প্লাগইন ইন্সটল
+#ধাপ ১১ — Flannel নেটওয়ার্ক প্লাগইন ইন্সটল
 
-### why need:
+#why need:
 
 Kubernetes পডরা যেন একে অপরের সাথে কথা বলতে পারে তার জন্য নেটওয়ার্ক প্লাগইন দরকার। Flannel হলো একটি ওভারলে নেটওয়ার্ক যা পডদের IP ঠিকানা দিয়ে ক্লাস্টারের ভিতরে যোগাযোগ করতে সাহায্য করে।
 
