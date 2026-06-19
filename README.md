@@ -191,7 +191,7 @@ sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 
 ---
 
-# ধাপ ১: containerd ইনস্টল করুন
+# ধাপ ৮: containerd ইনস্টল করুন
 ```bash
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
@@ -208,7 +208,7 @@ sudo apt-get install -y containerd.io
 | `sudo systemctl restart containerd` | নতুন কনফিগ লোড করতে containerd রিস্টার্ট করো |
 | `sudo systemctl enable containerd` | সিস্টেম বুট হলে containerd অটোমেটিক চালু হবে |
 
-# ধাপ ৩: ভেরিফাই করুন
+# ভেরিফাই করুন
 ```bash
 sudo systemctl status containerd --no-pager
 grep SystemdCgroup /etc/containerd/config.toml
