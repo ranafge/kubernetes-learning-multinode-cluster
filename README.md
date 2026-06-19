@@ -192,6 +192,7 @@ sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 ---
 
 # ধাপ ১: containerd ইনস্টল করুন
+```bash
 sudo apt-get update
 sudo apt-get install -y ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
@@ -200,19 +201,22 @@ sudo chmod a+r /etc/apt/keyrings/docker.asc
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 sudo apt-get install -y containerd.io
+```
 
-# ধাপ ২: containerd কনফিগার করুন (আপনার দেওয়া কমান্ড)
+# ধাপ ২: containerd কনফিগার করুন
+```bash
 sudo mkdir -p /etc/containerd
 sudo containerd config default | sudo tee /etc/containerd/config.toml
 sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/g' /etc/containerd/config.toml
 sudo systemctl restart containerd
 sudo systemctl enable containerd
+```
 
 # ধাপ ৩: ভেরিফাই করুন
+```bash
 sudo systemctl status containerd --no-pager
 grep SystemdCgroup /etc/containerd/config.toml
-
----
+```
 
 # ## ধাপ ৯ — ক্লাস্টার তৈরি করো (kubeadm init)
 
