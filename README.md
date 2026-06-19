@@ -191,29 +191,26 @@ sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 
 ---
 
-# ## ধাপ ৮ — Containerd কনফিগার করা
+# ধাপ ১: containerd ইনস্টল করুন
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install -y containerd.io
 
-### why need:
-
-Kubernetes পড চালানোর জন্য container runtime দরকার — এখানে `containerd`। `SystemdCgroup` চালু না করলে `kubelet` আর `containerd`-এর মধ্যে রিসোর্স ম্যানেজমেন্টে গন্ডগোল হয়, যার ফলে ক্লাস্টার অস্থির হয়।
-
-| কমান্ড/অপশন                       | মানে কী                    |
-| --------------------------------- | -------------------------- |
-| `containerd config default`       | ডিফল্ট কনফিগ দেখাও         |
-| `tee /etc/containerd/config.toml` | ফাইলে সেভ করো              |
-| `SystemdCgroup = false → true`    | systemd পদ্ধতি চালু করো    |
-| `systemctl restart`               | নতুন কনফিগ দিয়ে আবার চালু |
-
-### command
-
-```bash
+# ধাপ ২: containerd কনফিগার করুন (আপনার দেওয়া কমান্ড)
+sudo mkdir -p /etc/containerd
 sudo containerd config default | sudo tee /etc/containerd/config.toml
-
-sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/g' \
-/etc/containerd/config.toml
-
+sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/g' /etc/containerd/config.toml
 sudo systemctl restart containerd
-```
+sudo systemctl enable containerd
+
+# ধাপ ৩: ভেরিফাই করুন
+sudo systemctl status containerd --no-pager
+grep SystemdCgroup /etc/containerd/config.toml
 
 ---
 
