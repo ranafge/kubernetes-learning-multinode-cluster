@@ -220,6 +220,15 @@ grep SystemdCgroup /etc/containerd/config.toml
 
 এই কমান্ডটাই আসলে Kubernetes ক্লাস্টার তৈরি করে। Control Plane নোড সেটআপ করে, API Server, etcd, Controller Manager সব চালু করে। `--pod-network-cidr` Flannel-এর জন্য নির্দিষ্ট রেঞ্জ দেয়।
 
+# IP ফরওয়ার্ডিং সক্রিয় করে kubeadm init চালান
+
+```bash
+# ১. IP ফরওয়ার্ডিং চালু করুন
+sudo sysctl -w net.ipv4.ip_forward=1
+
+# ২. পার্মানেন্ট করে রাখুন (রিবুটের পরেও থাকবে)
+echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf
+
 | কমান্ড/অপশন          | মানে কী                                  |
 | -------------------- | ---------------------------------------- |
 | `kubeadm init`       | নতুন ক্লাস্টার শুরু করো                  |
