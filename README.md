@@ -74,7 +74,7 @@ EOF
 
 ধাপ ৩ — Kubernetes-এর GPG চাবি ডাউনলোড
 
-### why need:
+why need:
 
 GPG চাবি দিয়ে যাচাই করা হয় যে ডাউনলোড করা Kubernetes প্যাকেজগুলো আসল আর ভুয়া নয়। এটা সিকিউরিটি নিশ্চিত করে — যেন কেউ মাঝপথে ভুয়া প্যাকেজ ঢুকাতে না পারে।
 
@@ -101,7 +101,7 @@ curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.36/deb/Release.key \
 
 ধাপ ৪ — Kubernetes রিপোজিটরি যোগ করা
 
-### why need:
+why need:
 
 রিপোজিটরি যোগ করলে Ubuntu জানে কোথা থেকে Kubernetes প্যাকেজ ডাউনলোড করতে হবে। এটা ঠিকানা দেওয়ার মতো — যাতে `apt-get` কমান্ড সঠিক জায়গা থেকে `kubeadm`, `kubelet`, `kubectl` খুঁজে পায়।
 
@@ -124,7 +124,7 @@ echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.
 
 ধাপ ৫ — kubeadm, kubelet, kubectl ইন্সটল
 
-### why need:
+why need:
 
 `kubeadm` ক্লাস্টার তৈরি করে, `kubelet` প্রতিটি নোডে পড চালায়, `kubectl` ক্লাস্টার কন্ট্রোল করে। তিনটিই Kubernetes-এর মূল উপাদান। `apt-mark hold` দেওয়া হয় কারণ অটো-আপডেট হলে ক্লাস্টার ভেঙে যেতে পারে।
 
@@ -147,7 +147,7 @@ sudo apt-mark hold kubelet kubeadm kubectl
 
 ধাপ ৬ — kubelet সার্ভিস চালু করা
 
-### why need:
+why need:
 
 `kubelet` সার্ভিস চালু না থাকলে Kubernetes কোনো পড চালাতে পারবে না। `enable` দেওয়া হয় যেন কম্পিউটার রিবুট করার পরেও নিজে নিজে চালু হয়।
 
@@ -216,7 +216,7 @@ grep SystemdCgroup /etc/containerd/config.toml
 
 ধাপ ৯ — ক্লাস্টার তৈরি করো (kubeadm init)
 
-#why need:
+why need:
 
 এই কমান্ডটাই আসলে Kubernetes ক্লাস্টার তৈরি করে। Control Plane নোড সেটআপ করে, API Server, etcd, Controller Manager সব চালু করে। `--pod-network-cidr` Flannel-এর জন্য নির্দিষ্ট রেঞ্জ দেয়।
 
@@ -245,7 +245,7 @@ sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 
 ধাপ ১০ — kubectl কনফিগার করা
 
-#why need:
+why need:
 
 `kubectl` ক্লাস্টারের সাথে কথা বলতে চাইলে পরিচয়পত্র লাগে। `admin.conf` ফাইলেই সেই পরিচয়পত্র থাকে। `~/.kube/config` এ রাখলে `kubectl` নিজে নিজে খুঁজে পায়।
 
@@ -269,7 +269,7 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 ধাপ ১১ — Flannel নেটওয়ার্ক প্লাগইন ইন্সটল
 
-#why need:
+why need:
 
 Kubernetes পডরা যেন একে অপরের সাথে কথা বলতে পারে তার জন্য নেটওয়ার্ক প্লাগইন দরকার। Flannel হলো একটি ওভারলে নেটওয়ার্ক যা পডদের IP ঠিকানা দিয়ে ক্লাস্টারের ভিতরে যোগাযোগ করতে সাহায্য করে।
 
