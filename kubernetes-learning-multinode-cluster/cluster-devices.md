@@ -17,7 +17,7 @@ Based on your Proxmox VE, you have the following VMs:
 | 100 | masterone | 192.168.0.100 | Ubuntu 24.04 | 2G | 2 | Master (Optional) |
 | 101 | mastertwo | 192.168.0.101 | Ubuntu 24.04 | 2G | 2 | Primary Master |
 | 102 | workeroone | 192.168.0.102 | Ubuntu 24.04 | 2G | 2 | **Worker** |
-| 106 | workspace | 192.168.0.106 | ubuntu 24.4 | 2G | 2 |  **Master(Optional)**|
+| 106 | workspace | 192.168.0.106 | ubuntu 24.4 | 2G | 2 |  **Primary Master(Optional)**|
 | 103 | workertwo | 192.168.0.103 | Ubuntu 24.04 | 2G | 2 | Worker (Optional) |
 | 104 | loadblone | 192.168.0.104 | Ubuntu 24.04 | 2G | 2 | Load Balancer (Optional) |
 | 105 | loadbltwo | 192.168.0.105 | Ubuntu 24.04 | 2G | 2 | Load Balancer (Optional) |
