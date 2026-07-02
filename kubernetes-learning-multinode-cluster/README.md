@@ -72,7 +72,7 @@ EOF
 
 ---
 
-## ধাপ ३ — Kubernetes-এর GPG চাবি ডাউনলোড
+## ধাপ ৩ — Kubernetes-এর GPG চাবি ডাউনলোড
 
 ### Why Need
 
@@ -120,7 +120,7 @@ echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.
 
 ---
 
-## ধাপ ५ — kubeadm, kubelet, kubectl ইন্সটল
+## ধাপ ৪ — kubeadm, kubelet, kubectl ইন্সটল
 
 ### Why Need
 
@@ -143,7 +143,7 @@ sudo apt-mark hold kubelet kubeadm kubectl
 
 ---
 
-## ধাপ ६ — kubelet সার্ভিস চালু করা
+## ধাপ ৫ — kubelet সার্ভিস চালু করা
 
 ### Why Need
 
@@ -165,7 +165,7 @@ sudo systemctl status kubelet
 
 ---
 
-## ধাপ ७ — Swap বন্ধ করা (অত্যন্ত জরুরি!)
+## ধাপ ৬ — Swap বন্ধ করা (অত্যন্ত জরুরি!)
 
 ### Why Need
 
@@ -189,7 +189,7 @@ sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 
 ---
 
-## ধাপ ८ — Containerd কনফিগার করা
+## ধাপ ৭ — Containerd কনফিগার করা
 
 ### Why Need
 
@@ -223,7 +223,7 @@ sudo systemctl status containerd
 ```
 
 ---
-## ধাপ ৯ — IP Forward চালু করা (Kubernetes নেটওয়ার্কের জন্য অত্যন্ত জরুরি!)
+## ধাপ ৮ — IP Forward চালু করা (Kubernetes নেটওয়ার্কের জন্য অত্যন্ত জরুরি!)
 
 ### Why Need
 
@@ -274,7 +274,7 @@ sysctl --system
 
 ```
 
-## ধাপ ১১ — ক্লাস্টার তৈরি করো (kubeadm init)
+## ধাপ ৯ — ক্লাস্টার তৈরি করো (kubeadm init)
 
 ### Why Need
 
@@ -297,7 +297,7 @@ sudo kubeadm init \
 
 ---
 
-## ধাপ ১২ — kubectl কনফিগার করা
+## ধাপ ১০ — kubectl কনফিগার করা
 
 ### Why Need
 
@@ -321,7 +321,7 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 ---
 
-## ধাপ ১৩ — Flannel নেটওয়ার্ক প্লাগইন ইন্সটল
+## ধাপ ১১ — Flannel নেটওয়ার্ক প্লাগইন ইন্সটল
 
 ### Why Need
 
