@@ -355,9 +355,9 @@ backend kubernetes-backend
 
     balance roundrobin
 
-    server backend1 192.168.0.101:6443 check fall 3 rise 2
-    server backend2 192.168.0.106:6443 check fall 3 rise 2
-    server backend3 192.168.0.100:6443 check fall 3 rise 2
+    server mastertwo 192.168.0.101:6443 check fall 3 rise 2
+    server workspace 192.168.0.106:6443 check fall 3 rise 2
+    server masterone 192.168.0.100:6443 check fall 3 rise 2
 EOF
 ```
 
