@@ -338,7 +338,7 @@ defaults
     http-check expect status 200
 
 frontend kubernetes-frontend
-    bind 192.168.0.99:6443
+    bind 0.0.0.0:6443
 
     mode tcp
 
