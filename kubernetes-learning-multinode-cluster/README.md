@@ -127,7 +127,7 @@ echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.
 
 ```bash
 sudo apt update
-sudo apt install -y kubeadm=1.36.2-1.1 kubelet=1.36.2-1.1 kubectl=1.36.2-1.1
+sudo apt install -y --allow-change-held-packages kubeadm=1.36.2-2.1 kubelet=1.36.2-2.1 kubectl=1.36.2-2.1
 sudo apt-mark hold kubeadm kubelet kubectl
 sudo systemctl restart kubelet
 ```
@@ -172,7 +172,6 @@ Kubernetes ডিজাইনে Swap ব্যবহার করা নিষ�
 
 ```bash
 sudo swapoff -a
-
 sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 ```
 
@@ -336,3 +335,8 @@ master-node    Ready    control-plane   10m   v1.36.0
 - For production use proper firewall rules instead of disabling UFW
 
 ---
+
+📋 ওয়ার্কার নোড জয়েনের জন্য (যদি প্রয়োজন)
+bash
+# workspace থেকে শুধু টোকেন
+sudo kubeadm token create --print-join-command
