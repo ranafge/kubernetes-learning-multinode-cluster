@@ -102,11 +102,12 @@ GPG চাবি দিয়ে যাচাই করা হয় যে ড�
 ### Command
 
 ```bash
-# GPG কী ডাউনলোড করুন (সঠিকভাবে)
+# ১. GPG কী ডাউনলোড করুন (v1.36-এর জন্য)
 sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-# রেপো যোগ করুন (v1.30 ব্যবহার করুন)
-echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.36/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+# ২. রেপো যোগ করুন (v1.36 ব্যবহার করুন)
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.36/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 ```
 ---
 ## ধাপ ৪ — kubeadm, kubelet, kubectl ইন্সটল
