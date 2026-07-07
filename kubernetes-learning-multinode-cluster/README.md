@@ -126,7 +126,7 @@ echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.
 
 ```bash
 sudo apt update
-sudo apt install -y kubeadm=1.30.14-1.1 kubelet=1.30.14-1.1 kubectl=1.30.14-1.1
+sudo apt install -y kubeadm=1.36.2-1.1 kubelet=1.36.2-1.1 kubectl=1.36.2-1.1
 sudo apt-mark hold kubeadm kubelet kubectl
 sudo systemctl restart kubelet
 ```
