@@ -335,6 +335,13 @@ master-node    Ready    control-plane   10m   v1.36.0
 - For production use proper firewall rules instead of disabling UFW
 
 ---
+# workerone ও workertwo-তে worker label লাগাও
+kubectl label node workerone node-role.kubernetes.io/worker=worker
+kubectl label node workertwo node-role.kubernetes.io/worker=worker
+
+# label চেক করো
+kubectl get nodes --show-labels | grep worker
+
 
 📋 ওয়ার্কার নোড জয়েনের জন্য (যদি প্রয়োজন)
 bash
