@@ -97,7 +97,6 @@ sudo su -
 ```
 
 ---
-
 > ⚠️ **উভয় নোডে (lb1 এবং lb2) এই কমান্ডগুলো রান করতে হবে।**
 
 ---
@@ -116,7 +115,6 @@ sudo apt install -y haproxy keepalived
 ```
 
 ---
-
 # ২. ফায়ারওয়াল বন্ধ করুন (ল্যাব এনভায়রনমেন্ট)
 
 ```bash
@@ -125,7 +123,6 @@ sudo systemctl disable --now ufw
 ```
 
 ---
-
 # ৩. Swap বন্ধ করুন
 
 ```bash
@@ -144,7 +141,6 @@ keepalived -v
 ```
 
 ---
-
 # ৫. হেলথ চেক স্ক্রিপ্ট ডিরেক্টরি তৈরি
 
 ```bash
@@ -152,7 +148,6 @@ sudo mkdir -p /etc/keepalived/scripts
 ```
 
 ---
-
 # ৬. API Server Health Check Script
 
 ```bash
@@ -181,7 +176,6 @@ EOF
 ```
 
 ---
-
 # ৭. স্ক্রিপ্ট এক্সিকিউটেবল করুন
 
 ```bash
@@ -189,7 +183,6 @@ sudo chmod +x /etc/keepalived/scripts/check_apiserver.sh
 ```
 
 ---
-
 # ৮. Keepalived MASTER Configuration (lb1)
 
 * Node: **lb1**
@@ -236,7 +229,6 @@ EOF
 ```
 
 ---
-
 # ৯. Keepalived BACKUP Configuration (lb2)
 
 * Node: **lb2**
@@ -295,11 +287,9 @@ sudo systemctl status keepalived --no-pager
 ```
 
 ---
-
 > ⚠️ **HAProxy কনফিগারেশন উভয় নোডে (lb1 এবং lb2) একই হবে।**
 
 ---
-
 # ১১. HAProxy Configuration
 
 ```bash
@@ -362,7 +352,6 @@ EOF
 ```
 
 ---
-
 # ১২. HAProxy সার্ভিস চালু করুন
 
 ```bash
@@ -374,7 +363,6 @@ sudo systemctl status haproxy --no-pager
 ```
 
 ---
-
 # ১৩. Health Check
 
 ```bash
@@ -420,7 +408,6 @@ curl -k https://192.168.0.99:6443/healthz
 ```
 
 ---
-
 # Configuration Summary
 
 | Component       | Value           |

@@ -1,7 +1,6 @@
 # Kubernetes Setup Guide (Ubuntu)
 
 ---
-
 ## ধাপ ০ — ফায়ারওয়াল বন্ধ করা (UFW Disable)
 
 ### Why Need
@@ -176,7 +175,6 @@ sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 ```
 
 ---
-
 ## ধাপ ৭ — Containerd কনফিগার করা
 ### Why Need
 
@@ -231,7 +229,6 @@ Kubernetes-এর পডগুলো একে অপরের সাথে এ�
 | `/proc/sys/net/ipv4/ip_forward` | বর্তমান ip_forward মান দেখায় |
 
 ---
-
 ### Command
 
 #### ip_forward চালু করুন
@@ -263,7 +260,6 @@ sudo kubeadm init \
 ```
 
 ---
-
 ## ধাপ ১০ — kubectl কনফিগার করা
 
 ### Why Need
@@ -287,7 +283,6 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
 ---
-
 ## ধাপ ১১ — Flannel নেটওয়ার্ক প্লাগইন ইন্সটল
 
 ### Why Need
@@ -307,7 +302,6 @@ kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/
 ```
 
 ---
-
 ## ✅ Verification Commands
 
 ```bash
@@ -316,7 +310,6 @@ kubectl get pods -A
 ```
 
 ---
-
 ## ✅ Expected Output
 
 ```bash
@@ -325,7 +318,6 @@ master-node    Ready    control-plane   10m   v1.36.0
 ```
 
 ---
-
 ## ✅ Notes
 
 - Ubuntu 22.04 / 24.04 recommended
