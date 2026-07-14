@@ -1,0 +1,61 @@
+# =============================================
+# 04-backend-deployment.yaml
+# কাজ: Flask backend চালানো (Docker Hub এর image দিয়ে)
+# Image: ranafge/myflaskvuejsproject-backend
+# =============================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: myflaskvuejsproject
+spec:
+  replicas: 2                  # HA এর জন্য ২টি pod (২টি worker node এ ছড়িয়ে যাবে)
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: ranafge/myflaskvuejsproject-backend:latest
+          ports:
+            - containerPort: 5000   # Flask ডিফল্ট পোর্ট (আপনার app অনুযায়ী বদলান)
+          env:
+            - name: MYSQL_HOST
+              value: "mysql-service.myflaskvuejsproject.svc.cluster.local"
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: myflaskvuejsproject-secrets
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: myflaskvuejsproject-secrets
+                  key: MYSQL_PASSWORD
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: myflaskvuejsproject-secrets
+                  key: MYSQL_DATABASE
+            - name: FLASK_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: myflaskvuejsproject-secrets
+                  key: FLASK_SECRET_KEY
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "300m"
+          readinessProbe:
+            httpGet:
+              path: /            # আপনার app এ health endpoint থাকলে সেটা দিন (যেমন /health)
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10

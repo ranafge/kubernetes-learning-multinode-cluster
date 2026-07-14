@@ -1,0 +1,75 @@
+# =============================================
+# 02-mysql-statefulset.yaml
+# কাজ: MySQL database persistent storage সহ চালানো
+# StatefulSet ব্যবহার করা হচ্ছে কারণ database এর জন্য
+# স্থায়ী identity ও storage দরকার (Deployment না)
+# =============================================
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  namespace: myflaskvuejsproject
+spec:
+  serviceName: mysql-service      # headless service এর নাম (03 ফাইলে দেখুন)
+  replicas: 1                     # প্রাথমিকভাবে ১টি MySQL instance
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+              name: mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: myflaskvuejsproject-secrets
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: myflaskvuejsproject-secrets
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: myflaskvuejsproject-secrets
+                  key: MYSQL_PASSWORD
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: myflaskvuejsproject-secrets
+                  key: MYSQL_DATABASE
+          volumeMounts:
+            - name: mysql-data
+              mountPath: /var/lib/mysql   # DB ফাইল এখানে persist হবে
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            exec:
+              command: ["mysqladmin", "ping", "-h", "localhost"]
+            initialDelaySeconds: 30
+            periodSeconds: 10
+  # PersistentVolumeClaim টেমপ্লেট - প্রতিটি pod এর জন্য আলাদা storage
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        # storageClassName: "" এখানে না দিলে default StorageClass ব্যবহার হবে
+        # cluster এ default StorageClass থাকা আবশ্যক (nfs-client / local-path ইত্যাদি)
+        resources:
+          requests:
+            storage: 5Gi

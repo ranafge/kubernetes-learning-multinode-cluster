@@ -1,0 +1,18 @@
+# =============================================
+# 05-backend-service.yaml
+# কাজ: Backend pod গুলোর সামনে internal load-balancer (ClusterIP)
+# Frontend/Ingress এই service নাম দিয়ে backend এ পৌঁছাবে
+# =============================================
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: myflaskvuejsproject
+spec:
+  type: ClusterIP
+  selector:
+    app: backend
+  ports:
+    - port: 5000
+      targetPort: 5000
+      name: http

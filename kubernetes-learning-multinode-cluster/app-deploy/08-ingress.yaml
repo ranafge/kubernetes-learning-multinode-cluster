@@ -1,0 +1,41 @@
+# =============================================
+# 08-ingress.yaml
+# কাজ: বাইরের ট্রাফিক (VIP 192.168.0.106 হয়ে) কে
+# frontend ও backend এ path অনুযায়ী route করা
+#
+# ⚠️ IMPORTANT:
+# host: myflaskvueapp.local ব্যবহার করা হয়েছে (ডোমেইন না থাকলে)
+# আপনার LOCAL COMPUTER এর /etc/hosts (Linux/Mac) বা
+# C:\Windows\System32\drivers\etc\hosts (Windows) ফাইলে এই লাইন যোগ করুন:
+#     192.168.0.106   myflaskvueapp.local
+# তাহলে ব্রাউজারে http://myflaskvueapp.local দিয়ে অ্যাক্সেস করতে পারবেন
+# =============================================
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myflaskvuejsproject-ingress
+  namespace: myflaskvuejsproject
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2   # /api/xyz -> backend/xyz
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: myflaskvueapp.local
+      http:
+        paths:
+          # /api দিয়ে শুরু হওয়া সব রিকোয়েস্ট ব্যাকএন্ডে যাবে
+          - path: /api(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: backend-service
+                port:
+                  number: 5000
+          # বাকি সব রিকোয়েস্ট frontend এ যাবে
+          - path: /()(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: frontend-service
+                port:
+                  number: 80

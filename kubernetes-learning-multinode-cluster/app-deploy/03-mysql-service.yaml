@@ -1,0 +1,19 @@
+# =============================================
+# 03-mysql-service.yaml
+# কাজ: MySQL StatefulSet এর জন্য headless service তৈরি
+# (clusterIP: None মানে stable DNS নাম পাওয়া যাবে, load-balance করবে না)
+# Backend এই service নাম দিয়েই MySQL এ connect করবে
+# =============================================
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  namespace: myflaskvuejsproject
+spec:
+  clusterIP: None       # Headless service - StatefulSet এর জন্য দরকার
+  selector:
+    app: mysql
+  ports:
+    - port: 3306
+      targetPort: 3306
+      name: mysql
