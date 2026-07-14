@@ -327,14 +327,12 @@ ok
 ```
 
 ---
-
 # ১৪. দরকারি কমান্ডসমূহ
 
 ## সার্ভিস স্ট্যাটাস
 
 ```bash
 sudo systemctl status keepalived
-
 sudo systemctl status haproxy
 ```
 
@@ -352,11 +350,9 @@ ip a s | grep 192.168.0.99
 ```
 
 ## API Health Check
-
 ```bash
 curl -k https://192.168.0.99:6443/healthz
 ```
-
 ---
 # Configuration Summary
 
